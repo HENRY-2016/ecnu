@@ -1,0 +1,85 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
+
+use App\Models\OrganizationsModel;
+use App\Http\Controllers\OrganizationsController;
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+// migrate db tables
+Route::get('/migrate', function(){
+    Artisan::call('migrate'); 
+    dd('Migrations Done!');
+});
+
+//Clear config cache:
+Route::get('/config-cache', function() {
+    Artisan::call('config:cache');
+    return 'Config cache cleared';
+}); 
+
+// Clear application cache:
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+
+// Clear view cache:
+Route::get('/view-clear', function() {
+    Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+
+ //Clear route cache:
+Route::get('/route-cache', function() {
+    Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});
+
+
+
+Route::get('/', function () {return view('auth.login');});
+Route::get('/components/dashboard', function () {
+    return view('components.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+Route::get('/components/orgs/view/{organization}', function ($organization) {
+    $data = OrganizationsModel::where('Province',$organization)->get ();
+    $total = OrganizationsModel::where('Province',$organization)->count();
+    return view('components.orgs.view',compact('data','total','organization'));
+})->middleware(['auth', 'verified'])->name('View');
+
+Route::get('/components/orgs/add/{organization}', function ($organization) {
+    return view('components.orgs.add',compact('organization'));
+})->middleware(['auth', 'verified'])->name('Add');
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+// resources
+Route::resource('OrganizationsResource',OrganizationsController::class);
+
+require __DIR__.'/auth.php';
