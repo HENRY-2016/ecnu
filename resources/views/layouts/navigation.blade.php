@@ -186,6 +186,31 @@
         </li><!-- End Home Nav -->
         
 
+        <li class="nav-item dropdown pe-3">
+
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Stock</span>
+            </a><!-- End Profile Iamge Icon -->
+    
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center " href="{{route('asset.index')}}">
+                    <i class="bi bi-forward"></i>
+                    <span>Assets</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{{route('supplier.index')}}">
+                    <i class="bi bi-forward"></i>
+                    <span>Suppliers</span>
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+            </ul><!-- End Home Dropdown Items -->
+        </li><!-- End Home Nav -->
 
     <li class="nav-item dropdown pe-3">
 

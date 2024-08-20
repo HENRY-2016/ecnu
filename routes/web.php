@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\OrganizationsModel;
 use App\Http\Controllers\OrganizationsController;
-
+use App\Http\Controllers\SupplierController;
+use App\Models\AssetsModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,9 @@ Route::get('/route-cache', function() {
 });
 
 
+// Get Ajax Data
+Route::get('/supplier/data/{id}', [SupplierController::class, 'getAjaxData']);
+Route::get('/asset/data/{id}', [AssetsController::class, 'getAjaxData']);
 
 Route::get('/', function () {return view('auth.login');});
 Route::get('/components/dashboard', function () {
@@ -69,6 +74,11 @@ Route::get('/components/orgs/add/{organization}', function ($organization) {
     return view('components.orgs.add',compact('organization'));
 })->middleware(['auth', 'verified'])->name('Add');
 
+Route::get('/components/orgs/print/{id}', function ($id) {
+    
+    $data = OrganizationsModel::findOrFail($id);
+    return view('components.orgs.Print',compact('data'));
+})->middleware(['auth', 'verified'])->name('Print');
 
 
 
@@ -81,5 +91,7 @@ Route::middleware('auth')->group(function () {
 
 // resources
 Route::resource('OrganizationsResource',OrganizationsController::class);
+Route::resource('supplier',SupplierController::class);
+Route::resource('asset',AssetsController::class);
 
 require __DIR__.'/auth.php';

@@ -18,3 +18,14 @@ function closeCustomAlert() {
     alertBox.style.display = "none";
 }
 
+function printReceipt ()
+{
+
+	var contentOfDiv = document.getElementById("receipt-print-area").innerHTML;
+	var newWin = window.open('', '');
+	newWin.document.write('');
+	newWin.document.write(contentOfDiv);
+	newWin.document.write('');
+	newWin.document.close();
+	newWin.print();
+}

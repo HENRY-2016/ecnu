@@ -6,9 +6,9 @@ CLIENT NAME: Elderly Care Network Uganda (ecnu)
 
 PROJECT TYPE:Deployment
  
-DATE: 181/03/2024
+DATE: 18/03/2024
 
-PROJECT LINK:    
+PROJECT LINK: https://github.com/HENRY-2016/ecnu
 
 DEVELOPER:		MogaHenze
                    +256 701 243 139
@@ -70,6 +70,16 @@ WEBSITE:			https://mogahenze.com
         php artisan make:model OrganizationsModel -m (model)
         php artisan make:controller OrganizationsController --resource (controller)
 
+    Supplier 
+        php artisan make:migration create_supplier_table --create=supplier_table
+        php artisan make:model SupplierModel
+        php artisan make:controller SupplierController --resource 
+
+    Assets 
+        php artisan make:migration create_assets_table --create=assets_table
+        php artisan make:model AssetsModel
+        php artisan make:controller AssetsController --resource 
+
 
             To add the new column
         php artisan make:migration add_new_column_to_mass_collections_table --table="mass_collections_table"
@@ -93,6 +103,22 @@ WEBSITE:			https://mogahenze.com
 
 ## Git Hub Pushing
 1 => git add .
-2 => git commit -m 'Initial Uploads'
+2 => git commit -m 'New Changes And Uploads'
 3 => git branch -M main
 4 => git push -u origin main
+
+
+
+Assets
+    seller
+        contact 
+        palace 
+    asset name 
+    date recorded
+
+Current Assets
+    seller
+        contact 
+        palace 
+    asset name 
+    date recorded

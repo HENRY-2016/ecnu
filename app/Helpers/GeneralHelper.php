@@ -1,12 +1,24 @@
 <?php
 namespace App\Helpers;
 
-
+use App\Models\SupplierModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class GeneralHelper 
 {
+
+    public static function getSupplierName ($id)
+    {
+        $data = SupplierModel::where('id',$id)->get(['name']);
+        $length = count ($data);
+        if ($length == 0){return '';}
+        else 
+        {
+            $name =  $data[0]["name"];
+            return $name;
+        }
+    }
 
     // public static function getMemberName ($id)
     // {
@@ -31,17 +43,7 @@ class GeneralHelper
     //         return $name;
     //     }
     // }
-    // public static function getMemberContact2 ($id)
-    // {
-    //     $data = MembersModel ::where('id',$id)->get(['Contact2']);
-    //     $length = count ($data);
-    //     if ($length == 0){return '';}
-    //     else 
-    //     {
-    //         $name =  $data[0]["Contact2"];
-    //         return $name;
-    //     }
-    // }
+   
 
 
     // public static function getMonth($option,$id)

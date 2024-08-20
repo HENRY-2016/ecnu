@@ -1,5 +1,5 @@
     <x-app-layout>
-    <main id="main" class="main">
+    <main id="main" class="main" style="display: none !important">
 
         <div class="pagetitle">
             <h1>Dashboard</h1>

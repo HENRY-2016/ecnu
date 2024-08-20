@@ -178,6 +178,23 @@ class OrganizationsController extends Controller
         $data = OrganizationsModel::findOrFail($id);
         return response()->json(['data' => $data]);
     }
+    
+    public function printData (Request $request)
+    {
+        $id = $request->id;
+
+        $data = OrganizationsModel::findOrFail($id);
+        
+        echo $data;
+        // $recordIdData = OrganizationsModel::where('id',$id)->get('recordId');
+        // $recordId = $recordIdData[0]["recordId"];
+        // $relatives = PriestsWingRelativesModel::where('recordId',$recordId)->get(['gender','area', 'fullName','contact1','contact2','district']);
+        // $careTakers = PriestsWingCareTakerModel::where('recordId',$recordId)->get(['gender','area', 'fullName','contact1','contact2','district']);
+
+        // return view('Pages/PriestsWing/Print',[
+        //     'data'=>$data
+        // ]);
+    }
 
 
     /**

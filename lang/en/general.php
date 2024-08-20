@@ -31,6 +31,9 @@ return  [
     'org16' => 'LSMIG | Full Name',
     'org17' => 'MSMMOC | Full Name',
     'org18' => 'CONSOLERS | Full Name',
+
+    'supplier' => 'Supplier | Suppliers',
+    'asset' => 'Asset | Assets',
     
 
 
