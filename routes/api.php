@@ -17,8 +17,8 @@ use App\Http\Controllers\OrganizationsController;
 |
 */
 
-Route::post('save/data/details',[OrganizationsController::class,'saveData']);
-Route::post('update/data/details',[OrganizationsController::class,'updateData']);
+// Route::post('save/data/details',[OrganizationsController::class,'saveData']);
+// Route::post('update/data/details',[OrganizationsController::class,'updateData']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

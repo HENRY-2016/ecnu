@@ -169,6 +169,16 @@
                             <p class="text-start" id="show-provice-id" ></p>
                         </td>
                         <td>
+                            <b><p class="text-start">Ecleziastical Provice</p></b>
+                            <p class="text-start" id="show-eProvice-id" ></p>
+                        </td>
+                        <td>
+                            <b><p class="text-start">Diocese</p></b>
+                            <p class="text-start" id="show-diocese-id" ></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <b><p class="text-start">Coordinator</p></b>
                             <p class="text-start" id="show-coordinator-id" ></p>
                         </td>
@@ -176,9 +186,6 @@
                             <b><p class="text-start">Contact</p></b>
                             <p class="text-start" id="show-contact-id" ></p>
                         </td>
-                        
-                    </tr>
-                    <tr>
                         <td>
                             <b><p class="text-start">Elderly Number</p></b>
                             <p class="text-start" id="show-erderly-num-id" ></p>
@@ -187,6 +194,8 @@
                             <b><p class="text-start">Bank Account</p></b>
                             <p class="text-start" id="show-bank-account-id" ></p>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <b><p class="text-start">Bank Name</p></b>
                             <p class="text-start" id="show-bank-name-id" ></p>
@@ -194,6 +203,10 @@
                         <td>
                             <b><p class="text-start">Bank Branch</p></b>
                             <p class="text-start" id="show-bank-branch-id" ></p>
+                        </td>
+                        <td>
+                            <b><p class="text-start">Grant</p></b>
+                            <p class="text-start" id="show-grant-id" ></p>
                         </td>
                     </tr>
                 </table>
@@ -379,6 +392,10 @@ $('#showModal').on('show.bs.modal', function(event){
         $('#show-bank-account-id').html(data.data.B_Account);
         $('#show-bank-name-id').html(data.data.B_Name);
         $('#show-bank-branch-id').html(data.data.B_Branch);
+        $('#show-grant-id').html(data.data.grant);
+        $('#show-eProvice-id').html(data.data.B_Branch);
+        $('#show-diocese-id').html(data.data.diocese);
+
 
         var activitiesList = data.data.ActivitiesArray;
         var challengesList = data.data.ChallengesArray;

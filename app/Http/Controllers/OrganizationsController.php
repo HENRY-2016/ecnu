@@ -102,6 +102,9 @@ class OrganizationsController extends Controller
         // insert Data
         $form_data = array(
             'Province'  => $request->Province,
+            'diocese'  => $request->Diocese,
+            'eProvince'  => $request->EProvince,
+            'Grant'  => $request->Grant,
             'Coordinator'  => $request->Coordinator,
             'Contact'  => $request->Contact,
             'Elderly_Num'=>$request->ElderlyNum,
@@ -257,6 +260,9 @@ class OrganizationsController extends Controller
         // insert Data
         $form_data = array(
             'Province'  => $request->Province,
+            'diocese'  => $request->Diocese,
+            'eProvince'  => $request->EProvince,
+            'Grant'  => $request->Grant,
             'Coordinator'  => $request->Coordinator,
             'Contact'  => $request->Contact,
             'Elderly_Num'=>$request->ElderlyNum,

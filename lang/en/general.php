@@ -2,7 +2,7 @@
 
 return  [
 
-    'appName'=>'ECNU',
+    'appName'=>'SLECN',
     'pageTitle'=>' : ',
 
 

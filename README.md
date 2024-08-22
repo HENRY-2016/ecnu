@@ -82,7 +82,7 @@ WEBSITE:			https://mogahenze.com
 
 
             To add the new column
-        php artisan make:migration add_new_column_to_mass_collections_table --table="mass_collections_table"
+        php artisan make:migration add_new_column_to_organizations_table --table="organizations_table"
 
 
          public function up()
@@ -103,22 +103,8 @@ WEBSITE:			https://mogahenze.com
 
 ## Git Hub Pushing
 1 => git add .
-2 => git commit -m 'New Changes And Uploads'
+2 => git commit -m 'New Changes And Updates'
 3 => git branch -M main
 4 => git push -u origin main
 
 
-
-Assets
-    seller
-        contact 
-        palace 
-    asset name 
-    date recorded
-
-Current Assets
-    seller
-        contact 
-        palace 
-    asset name 
-    date recorded

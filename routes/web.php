@@ -62,7 +62,8 @@ Route::get('/components/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
+Route::post('/save/data/details',[OrganizationsController::class,'saveData']);
+Route::post('/update/data/details',[OrganizationsController::class,'updateData']);
 
 Route::get('/components/orgs/view/{organization}', function ($organization) {
     $data = OrganizationsModel::where('Province',$organization)->get ();

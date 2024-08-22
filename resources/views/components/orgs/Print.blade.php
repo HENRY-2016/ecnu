@@ -16,9 +16,17 @@
             </center>
         </div>
         <div class="customer-div">
-            <p class="black-text-color"><strong>{{$data->Province}} Details !</strong> Perticular Information !</p>
+            <p class="black-text-color"><strong>{{$data->Province}} Institute Details !</strong> Perticular Information !</p>
             <table >
                 <tbody>
+                    <tr>
+                        <td class="table-td"><p class="black-text-color"><b>E Province</b></p></td>
+                        <td class="table-td"><p class="black-text-color">&nbsp;&nbsp;&nbsp;&nbsp; {{$data->eProvince}}</p></td>
+                    </tr>
+                    <tr>
+                        <td class="table-td"><p class="black-text-color"><b>Diocese</b></p></td>
+                        <td class="table-td"><p class="black-text-color">&nbsp;&nbsp;&nbsp;&nbsp; {{$data->diocese}}</p></td>
+                    </tr>
                     <tr>
                         <td class="table-td"><p class="black-text-color"><b>Coordinator</b></p></td>
                         <td class="table-td"><p class="black-text-color">&nbsp;&nbsp;&nbsp;&nbsp; {{$data->Coordinator}}</p></td>
@@ -42,6 +50,10 @@
                     <tr>
                         <td class="table-td"><p class="black-text-color"><b>Bank Branch</b></p></b></td>
                         <td class="table-td"><p class="black-text-color">&nbsp;&nbsp;&nbsp;&nbsp;{{$data->B_Branch}}</p></td>
+                    </tr>
+                    <tr>
+                        <td class="table-td"><p class="black-text-color"><b>Grant</b></p></td>
+                        <td class="table-td"><p class="black-text-color">&nbsp;&nbsp;&nbsp;&nbsp; {{$data->grant}} </p></td>
                     </tr>
                     <tr>
                         <td class="table-td"><p class="black-text-color"><b>Registered Date</b></p></td>

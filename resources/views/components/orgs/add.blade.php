@@ -1,5 +1,5 @@
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <x-app-layout>
     <main id="main" class="main">
 
@@ -47,8 +47,18 @@
         <div class="my-grid-container-4-columns">
     
             <div class="my-grid-item">
-                <label class="input-labels" >Provice</label>
+                <label class="input-labels" >Institute</label>
                 <input readonly type="text" value="{{$organization}}" class="form-control" id="Province" placeholder="Province" autocomplete="off">
+            </div>
+
+            <div class="my-grid-item">
+                <label class="input-labels" >Ecleziastical Provice</label>
+                <input type="text"class="form-control" id="eProvince" placeholder="Province" autocomplete="off">
+            </div>
+
+            <div class="my-grid-item">
+                <label class="input-labels" >Diocese</label>
+                <input type="text"class="form-control" id="diocese" placeholder="Diocese" autocomplete="off">
             </div>
         
             <div class="my-grid-item">
@@ -83,6 +93,11 @@
 
             <div class="my-grid-item" >
                 <label  style="display: none" class="input-labels" >Bank Branch</label>
+            </div>
+
+            <div class="my-grid-item">
+                <label class="input-labels" >Total Grant For Two Years</label>
+                <input type="text" class="form-control" id="grant" placeholder="Grant" autocomplete="off">
             </div>
         
             <input  value="{{Auth::User()->id}}"  type="hidden"  id="User">
@@ -210,6 +225,7 @@
 
     function submitUserData() 
     {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
         var activitiesList = [];
         var challengesList = [];
         var recommendationsList = [];
@@ -217,6 +233,9 @@
         // grab inputs 
 
         var ProvinceInput = document.getElementById('Province').value;
+        var EProvinceInput = document.getElementById('eProvince').value;
+        var DioceseInput = document.getElementById('diocese').value;
+        var GrantInput = document.getElementById('grant').value;
         var CoordinatorInput = document.getElementById('Coordinator').value;
         var ContactInput = document.getElementById('Contact').value;
         var ElderlyNumInput = document.getElementById('ElderlyNum').value;
@@ -232,6 +251,9 @@
 
         // Validate Inputs
         if (ProvinceInput.length == 0){alert('Provice Input Can Not Be Empty')}
+        if (EProvinceInput.length == 0){alert('E Provice Input Can Not Be Empty')}
+        if (DioceseInput.length == 0){alert('Diocese Input Can Not Be Empty')}
+        if (GrantInput.length == 0){alert('Grant Input Can Not Be Empty')}
         if (CoordinatorInput.length == 0){alert('Coordinator Input Can Not Be Empty')}
         if (ContactInput.length == 0){alert('Contact Input Can Not Be Empty')}
         if (ElderlyNumInput.length == 0){alert('Elderly Num Input Can Not Be Empty')}
@@ -271,16 +293,17 @@
             });
 
 
-            var data = {Province:ProvinceInput, User:UserInput ,Coordinator:CoordinatorInput, Contact:ContactInput, ElderlyNum:ElderlyNumInput, BAccount:BankAccountInput,BName:BankNameInput,BBranch:BankBranchInput,ActivitiesArray:activitiesList, ChallengesArray:challengesList, RecommendationArray:recommendationsList};
+            var data = {Province:ProvinceInput, EProvince:EProvinceInput, Diocese:DioceseInput, Grant:GrantInput, User:UserInput ,Coordinator:CoordinatorInput, Contact:ContactInput, ElderlyNum:ElderlyNumInput, BAccount:BankAccountInput,BName:BankNameInput,BBranch:BankBranchInput,ActivitiesArray:activitiesList, ChallengesArray:challengesList, RecommendationArray:recommendationsList};
             var jsonData = JSON.stringify(data);
             console.log(jsonData)
-            console.log(StoreDataAPI)
+            // console.log(StoreDataAPI)
             $.ajax({
-                url: StoreDataAPI,
+                url: '/save/data/details',
                 type: "POST",
                 data: jsonData,
                 cache: false,
                 contentType: 'application/json; charset=utf-8',
+                headers: {'X-CSRF-TOKEN': csrfToken},
                 processData: false,
                 success: function (response)
                 {
@@ -293,8 +316,11 @@
                     else {
                         // Handle other responses if needed
                     }
+                },
+                error: function(xhr, status, error) {
+                    var postEror = 'Error In Posting Data : ' + error;
+                    console.log(postEror)
                 }
-                // console.error();
             });
         }
 
