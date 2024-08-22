@@ -1,5 +1,5 @@
 
-var BaseUrl = "http://localhost/ecnu/public";
+// var BaseUrl = "http://localhost/ecnu/public";
 // var BaseUrl = "http://127.0.0.1:8000";
 // var StoreDataAPI = BaseUrl+"/api/save/data/details";
 // var UpdateDataAPI = BaseUrl+"/api/update/data/details";

@@ -117,14 +117,14 @@
                 <td class="text-center">{{$row -> Coordinator}}</td>
                 <td class="text-center">{{$row -> Contact}}</td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-id="{{ $row->id }}" data-bs-target="#showModal"
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-id="{{ $row->id }}" data-bs-target="#showModal"
                     >Show</button>
                 </td>
                 <td class="text-center"><a class="btn btn-warning" href="{{ url('/components/orgs/print',[$row->id]) }}">Print</a></td>
                 <td class="text-center"><a  class="btn btn-secondary" href="{{route('OrganizationsResource.show',$row->id)}}">Edit</a></td>
                 @if((Auth::User()->email) == (Config::get('app.admin_email')))
                     <td class="text-center">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-id="{{ $row->id }}" data-bs-target="#deleteModal"
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-id="{{ $row->id }}" data-bs-target="#deleteModal"
                         >Delete</button>
                     </td>
                 @endif
@@ -376,97 +376,82 @@
 $(document).ready(function() {$('#table').DataTable();});
 
 
-$('#showModal').on('show.bs.modal', function(event){
-    var target = jQuery(event.relatedTarget)
-    var id = target.attr('data-bs-id');
+$('#showModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id = button.data('id') 
+    $.ajax({
+        url: '/orgs/data/' + id,
+        method: 'GET',
+        success: function(response) {
+            var created = response.created_at.split('T')[0]
+            $('#showModal').modal('show');
+            $('#show-created-id').html(created);
+            $('#show-provice-id').html(response.Province);
+            $('#show-coordinator-id').html(response.Coordinator);
+            $('#show-contact-id').html(response.Contact);
+            $('#show-erderly-num-id').html(response.Elderly_Num);
+            $('#show-bank-account-id').html(response.B_Account);
+            $('#show-bank-name-id').html(response.B_Name);
+            $('#show-bank-branch-id').html(response.B_Branch);
+            $('#show-grant-id').html(response.grant);
+            $('#show-eProvice-id').html(response.B_Branch);
+            $('#show-diocese-id').html(response.diocese);
 
-    var RequestUrl = BaseUrl+"/OrganizationsResource/"+id+"/edit";
-    $.get(RequestUrl, function (data) {
-        var created = data.data.created_at.split('T')[0]
-        $('#showModal').modal('show');
-        $('#show-created-id').html(created);
-        $('#show-provice-id').html(data.data.Province);
-        $('#show-coordinator-id').html(data.data.Coordinator);
-        $('#show-contact-id').html(data.data.Contact);
-        $('#show-erderly-num-id').html(data.data.Elderly_Num);
-        $('#show-bank-account-id').html(data.data.B_Account);
-        $('#show-bank-name-id').html(data.data.B_Name);
-        $('#show-bank-branch-id').html(data.data.B_Branch);
-        $('#show-grant-id').html(data.data.grant);
-        $('#show-eProvice-id').html(data.data.B_Branch);
-        $('#show-diocese-id').html(data.data.diocese);
 
-
-        var activitiesList = data.data.ActivitiesArray;
-        var challengesList = data.data.ChallengesArray;
-        var recommendationsList = data.data.RecommendationArray;
+            var activitiesList = response.ActivitiesArray;
+            var challengesList = response.ChallengesArray;
+            var recommendationsList = response.RecommendationArray;
+            
+            var activitiesJson = JSON.parse(activitiesList);
+            var challengesJson = JSON.parse(challengesList);
+            var recommendationsJson = JSON.parse(recommendationsList);
         
-        var activitiesJson = JSON.parse(activitiesList);
-        var challengesJson = JSON.parse(challengesList);
-        var recommendationsJson = JSON.parse(recommendationsList);
-    
-        var activitiesTrHTML = '';
-        var challengesTrHTML = '';
-        var recommendationsTrHTML = '';
-        var activityCount = 1;
-        var challengesCount = 1;
-        var recommendationCount = 1;
+            var activitiesTrHTML = '';
+            var challengesTrHTML = '';
+            var recommendationsTrHTML = '';
+            var activityCount = 1;
+            var challengesCount = 1;
+            var recommendationCount = 1;
 
 
-        $.each(activitiesJson, function (i, item) {
-            activitiesTrHTML += '<tr><td>' +'<span class="w3-badge">'+activityCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
-        });
-        $('#activities_table').html(" "); // clear element 
-        $('#activities_table').append(activitiesTrHTML);
+            $.each(activitiesJson, function (i, item) {
+                activitiesTrHTML += '<tr><td>' +'<span class="w3-badge">'+activityCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
+            });
+            $('#activities_table').html(" "); // clear element 
+            $('#activities_table').append(activitiesTrHTML);
 
-        $.each(challengesJson, function (i, item) {
-            challengesTrHTML += '<tr><td>' + '<span class="w3-badge">'+challengesCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
-        });
-        $('#challenges_table').html(" "); // clear element 
-        $('#challenges_table').append(challengesTrHTML);
+            $.each(challengesJson, function (i, item) {
+                challengesTrHTML += '<tr><td>' + '<span class="w3-badge">'+challengesCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
+            });
+            $('#challenges_table').html(" "); // clear element 
+            $('#challenges_table').append(challengesTrHTML);
 
-        $.each(activitiesJson, function (i, item) {
-            recommendationsTrHTML += '<tr><td>' + '<span class="w3-badge">'+recommendationCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
-        });
-        $('#recommendations_table').html(" "); // clear element 
-        $('#recommendations_table').append(recommendationsTrHTML);
-
-
-
-    })
-});
-
-$('#editModal').on('show.bs.modal', function(event){
-    var target = jQuery(event.relatedTarget)
-    var id = target.attr('data-bs-id');
-    var RequestUrl = BaseUrl+"/OrganizationsResource/"+id+"/edit";
-    $.get(RequestUrl, function (data) {
-
-        $('#editModal').modal('show');
-        $('#editId').val(data.data.id);
-        $('#edit-name').val(data.data.Name);
-        $('#edit-date').val(data.data.Date);
-        $('#edit-amount').val(data.data.Amount);
-        $('#edit-paid').val(data.data.Paid);
-    })
+            $.each(activitiesJson, function (i, item) {
+                recommendationsTrHTML += '<tr><td>' + '<span class="w3-badge">'+recommendationCount++ +'</span> &nbsp;&nbsp;&nbsp;' + item.data+ '</td><td>';
+            });
+            $('#recommendations_table').html(" "); // clear element 
+            $('#recommendations_table').append(recommendationsTrHTML);
+        }
+    });
 });
 
 
 
-$('#deleteModal').on('show.bs.modal', function(event){
-    var target = jQuery(event.relatedTarget)
-    var id = target.attr('data-bs-id');
-    var RequestUrl = BaseUrl+"/OrganizationsResource/"+id+"/edit";
-    console.log(RequestUrl)
-    
-    $.get(RequestUrl, function (data) {
-        console.log(data)
-        
-        $('#deleteModal').modal('show');
-        $('#deleteId').val(data.data.id);
-        $('#Delete-Name').html(data.data.Province);
-    })
+
+$('#deleteModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id = button.data('id') 
+    $.ajax({
+        url: '/orgs/data/' + id,
+        method: 'GET',
+        success: function(response) {
+            $('#deleteModal').modal('show');
+            $('#deleteId').val(response.id);
+            $('#Delete-Name').html(response.Province);
+        }
+    });
 });
+
 
 </script>
 </x-app-layout>

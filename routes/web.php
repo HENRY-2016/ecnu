@@ -53,6 +53,7 @@ Route::get('/route-cache', function() {
 
 
 // Get Ajax Data
+Route::get('/orgs/data/{id}', [OrganizationsController::class, 'getAjaxData']);
 Route::get('/supplier/data/{id}', [SupplierController::class, 'getAjaxData']);
 Route::get('/asset/data/{id}', [AssetsController::class, 'getAjaxData']);
 

@@ -181,6 +181,11 @@ class OrganizationsController extends Controller
         $data = OrganizationsModel::findOrFail($id);
         return response()->json(['data' => $data]);
     }
+    public function getAjaxData($id)
+    {
+        $data = OrganizationsModel::findOrFail($id);
+        return response()->json($data);
+    }
     
     public function printData (Request $request)
     {
